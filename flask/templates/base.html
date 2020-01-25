@@ -4,12 +4,27 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{%block title%}{%endblock%}</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
 body {
   font-family: "Lato", sans-serif;
+      background: linear-gradient(120deg, #e3227e, #e2f073, #af1fc6);
+    background-size: 10000% 10000%;
+        
+    -webkit-animation: AnimationName 10s ease infinite;
+    animation: AnimationName 10s ease infinite;
 }
-
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 57%}
+    50%{background-position:100% 44%}
+    100%{background-position:0% 57%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 57%}
+    50%{background-position:100% 44%}
+    100%{background-position:0% 57%}
+}
 .sidebar {
   height: 100%;
   width: 0;
@@ -36,26 +51,14 @@ body {
   color: #f1f1f1;
 }
 
-.sidebar .closebtn {
+.sidebar {
   position: absolute;
   top: 0;
   right: 25px;
   font-size: 36px;
-  margin-left: 50px;
+  margin-left: 0px;
 }
 
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #444;
-}
 
 #main {
   transition: margin-left .5s;
@@ -67,35 +70,114 @@ body {
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
 }
+
+
+.container {
+	width: 39px;
+  height: 39px;
+  display: inline-block;
+  cursor: pointer;
+  box-sizing: 
+}
+
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+* {
+  box-sizing: border-box;
+}
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+form.example {
+	float: right;
+}
+
+form.example button {
+  float: right;
+  width: 20%;
+  padding: 10px;
+  background: #343a40;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: grey;
+}
+
+form.example::after {
+align
+  content: "";
+  clear: both;
+  display: table;
+}
+
 </style>
 </head>
 <body>
 	<div id="mySidebar" class="sidebar">
-	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-	  <a href="#">temp</a>
-	  <a href="#">temp</a>
-	  <a href="#">temp</a>
+	  <a href="#">Account</a>
+	  <a href="#">Vibes</a>
 	  <a href="#">temp</a>
 	</div>
 
 	<div id="main">
-	  <button class="openbtn" onclick="openNav()">☰</button>  
+	  	<div class="container" onclick="myFunction(this)">
+			<div class="bar1"></div>
+		 	<div class="bar2"></div>
+		  	<div class="bar3"></div>
+		</div>  
+		<form class="example" action="/#" style="margin:0;max-width:300px">
+		  <input type="text" placeholder="Search.." name="search">
+		  <button type="submit"><i class="fa fa-search"></i></button>
+		</form>
+	  	{% block content %}
+		{% endblock %}
 	</div>
 
 	<script>
-	function openNav() {
-	  document.getElementById("mySidebar").style.width = "250px";
-	  document.getElementById("main").style.marginLeft = "250px";
+	function togNav() {
+		if(document.getElementById("mySidebar").style.width == "250px"){
+			document.getElementById("mySidebar").style.width = "0";
+			document.getElementById("main").style.marginLeft= "0";
+		} else {
+			document.getElementById("mySidebar").style.width = "250px";
+			document.getElementById("main").style.marginLeft= "250px";
+		}
 	}
-
-	function closeNav() {
-	  document.getElementById("mySidebar").style.width = "0";
-	  document.getElementById("main").style.marginLeft= "0";
+	function myFunction(x) {
+  		x.classList.toggle("change");
+  		togNav();
 	}
 	</script>
 
-	{% block content %}
-	{% endblock %}
+
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
