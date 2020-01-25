@@ -1,115 +1,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>Collapsible sidebar using Bootstrap 4</title>
-
-    <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="sidebar.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{%block title%}{%endblock%}</title>
 
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+</style>
 </head>
 <body>
-<!-- Basic Sidebar -->
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark pmd-navbar pmd-z-depth">
-    
-    <!-- Sidebar Toggle Button-->
-    <a href="javascript:void(0);" data-target="basicSidebar" data-placement="left" data-position="slidepush" is-open="true" is-open-width="1000" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pmd-sidebar-toggle"><i class="material-icons md-light">menu</i></a>
-    <a class="navbar-brand" href="#">Brand</a>
-      
-    <!-- Navbar Right icon -->		
-    <div class="pmd-navbar-right-icon ml-auto"> 
-      <a href="javascript:void(0);" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect"><i class="material-icons pmd-sm md-light">search</i></a>
-    </div>
+	<div id="mySidebar" class="sidebar">
+	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+	  <a href="#">temp</a>
+	  <a href="#">temp</a>
+	  <a href="#">temp</a>
+	  <a href="#">temp</a>
+	</div>
 
-</nav>
-<section id="pmd-main">
-    <!-- Left sidebar -->
-    <aside id="basicSidebar" class="pmd-sidebar bg-light pmd-z-depth" role="navigation">
-        <ul class="nav flex-column pmd-sidebar-nav">
-            <li class="nav-item pmd-user-info">
-                <a data-toggle="collapse" href="#collapseExample" class="nav-link btn-user media align-items-center">
-                    <img class="mr-3" src="https://pro.propeller.in/assets/images/avatar-icon-40x40.png" width="40" height="40" alt="avatar">
-                    <div class="media-body">
-                        User
-                    </div>
-                    <i class="material-icons md-light ml-2 pmd-sm">more_vert</i>
-                </a>
-                <ul class="collapse" id="collapseExample" data-parent="#basicSidebar">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="material-icons pmd-list-icon pmd-sm">delete</i>
-                            <span class="media-body">View Profile</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="material-icons pmd-list-icon pmd-sm">delete</i>
-                            <span class="media-body">Settings</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="material-icons pmd-list-icon pmd-sm">delete</i>
-                            <span class="media-body">Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        
-            <li class="nav-item">
-                <a class="nav-link" href="#inbox">
-                    <i class="material-icons pmd-list-icon pmd-sm">inbox</i>
-                    <span class="media-body">Inbox</span>
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link active" href="#">
-                    <i class="material-icons pmd-list-icon pmd-sm">star</i>
-                    <span class="media-body">Stared</span>
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="material-icons pmd-list-icon pmd-sm">send</i>
-                    <span class="media-body">Sent Email</span>
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="material-icons pmd-list-icon pmd-sm">drafts</i>
-                    <span class="media-body">Drafts</span>
-                </a>
-            </li>
-        </ul>
-    </aside>
-    <div class="pmd-sidebar-overlay"></div>
-    <!-- Start Content -->
-    <div class="pmd-content custom-pmd-content" id="content">
-        <h2 class="headline">Sidebar Constructor</h2>
-        <p>This structure shows a permanent app bar with a floating action button. The app bar absorbs elements from the tablet and mobile bottom bars.</p>
-        <p style="margin-bottom:0;">An optional bottom bar can be added for additional functionality or action overflow. A side nav overlays all other structural elements. A right nav menu can be accessed temporarily or pinned for permanent display.<br><br></p>
-    </div>
-</section>
-{% block content %}
-{% endblock %}
+	<div id="main">
+	  <button class="openbtn" onclick="openNav()">☰</button>  
+	</div>
 
- <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<script>
+	function openNav() {
+	  document.getElementById("mySidebar").style.width = "250px";
+	  document.getElementById("main").style.marginLeft = "250px";
+	}
+
+	function closeNav() {
+	  document.getElementById("mySidebar").style.width = "0";
+	  document.getElementById("main").style.marginLeft= "0";
+	}
+	</script>
+
+	{% block content %}
+	{% endblock %}
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 </body>
 </html>
