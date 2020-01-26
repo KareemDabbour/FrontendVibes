@@ -7,7 +7,12 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
+html{
+	
+	height: 100%;
+}
 body {
+	min-height: 100%;
   font-family: "Lato", sans-serif;
       background: linear-gradient(120deg, #e3227e, #e2f073, #af1fc6);
     background-size: 10000% 10000%;
@@ -24,6 +29,13 @@ body {
     0%{background-position:0% 57%}
     50%{background-position:100% 44%}
     100%{background-position:0% 57%}
+ /*
+ added new by irt
+ */
+
+ /*
+ added new 
+ */
 }
 .sidebar {
   height: 100%;
@@ -63,7 +75,10 @@ body {
 #main {
   transition: margin-left .5s;
   padding: 16px;
+  	min-height: 750px;
 }
+
+
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
@@ -72,12 +87,11 @@ body {
 }
 
 
-.container {
+.butt {
 	width: 39px;
   height: 39px;
   display: inline-block;
   cursor: pointer;
-  box-sizing: 
 }
 
 .bar1, .bar2, .bar3 {
@@ -106,10 +120,11 @@ body {
 form.example input[type=text] {
   padding: 10px;
   font-size: 17px;
-  border: 1px solid grey;
+  border: 1px solid white;
+  border-radius: 5px;
   float: left;
   width: 80%;
-  background: #f1f1f1;
+  background: transparent;
 }
 form.example {
 	float: right;
@@ -122,8 +137,9 @@ form.example button {
   background: #343a40;
   color: white;
   font-size: 17px;
-  border: 1px solid grey;
-  border-left: none;
+  border: 1px solid white;
+  border-radius: 5px;
+  /*border-left: none;*/
   cursor: pointer;
 }
 
@@ -132,7 +148,6 @@ form.example button:hover {
 }
 
 form.example::after {
-align
   content: "";
   clear: both;
   display: table;
@@ -148,7 +163,7 @@ align
 	</div>
 
 	<div id="main">
-	  	<div class="container" onclick="myFunction(this)">
+	  	<div class="butt" onclick="myFunction(this)">
 			<div class="bar1"></div>
 		 	<div class="bar2"></div>
 		  	<div class="bar3"></div>
