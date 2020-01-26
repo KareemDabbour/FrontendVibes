@@ -100,15 +100,11 @@ class DataBase:
         self.conn.commit()
         self.cursor.execute("SELECT last_insert_rowid()")
         row = self.cursor.fetchone()
-        pl.set_id(row[0]) 
+        pl.set_id(row[0])
+        return pl 
 
-    def update_playlist(self, _id, playlist):
-        query = f"UPDATE {PLAYLIST_TABLE} set songs={pickle.dumps(playlist.songs)} WHERE id = {_id}"
-        self.cursor.execute(query)
-        self.conn.commit
+    def update_playlist(self, playlist):
+        query = f"UPDATE {PLAYLIST_TABLE} set songs=? WHERE id = {playlist.id}"
+        self.cursor.execute(query, (pickle.dumps(playlist.songs),))
+        self.conn.commit()
 
-
-if __name__ == "__main__":
-    db = DataBase()
-    ls = db.get_playlists_by_vibe("HAPPY")
-    print(ls)
