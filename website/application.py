@@ -1,15 +1,17 @@
 from flask import Flask, render_template, url_for, redirect, request
 from models.player import Player
 from models.song_library import SongLibrary 
-
+from models.database import DataBase
 
 app = Flask(__name__)
 music_player = Player()
 song_library = SongLibrary()
+db = DataBase()
+playlists = db.get_all_playlists()
 
 @app.route('/')
 def home():
-	return render_template("index.html")
+	return render_template("index.html", **{"show_songs": True, "songs": playlists[0].songs})
 
 @app.route("/play/")
 def play():

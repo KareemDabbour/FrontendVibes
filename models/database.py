@@ -3,7 +3,7 @@ from sqlite3 import Error
 import os
 from datetime import datetime
 import pickle
-from playlist import Playlist
+from .playlist import Playlist
 
 cwd = os.getcwd()
 

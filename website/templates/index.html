@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}home page{% endblock %}
+{% block title %}Vibes{% endblock %}
 {%block content%}
 <style>
 *,::before,::after {
@@ -238,6 +238,29 @@ color:rgba(0,0,0,.1);
         <td> Artist</td>
         </tr>
 </table>
+
+{% if show_song %}
+<table class="table table-striped table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Song</th>
+      <th scope="col">Artist</th>
+      <th scope="col">Duration</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for count in range(len(songs)) %}
+        <tr>
+          <th scope="row">count</th>
+          <td>{{songs[i].name}}</td>
+          <td>{{songs[i].artist}}</td>
+          <td>{{songs[i].duration}}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
 
 <!-- <div class="container">
     <div class="column add-bottom">
