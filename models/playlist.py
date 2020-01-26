@@ -1,5 +1,5 @@
 import time
-from song import Song
+import Song
 
 class Playlist:
 	def __init__(self, name, id, vibe=None):

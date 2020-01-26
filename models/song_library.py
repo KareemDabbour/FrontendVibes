@@ -1,5 +1,5 @@
 import requests
-from song import Song
+import Song
 
 
 class SongLibrary:

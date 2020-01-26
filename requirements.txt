@@ -2,3 +2,4 @@ pygame
 flask
 requests
 wget
+sqlite3

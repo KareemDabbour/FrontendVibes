@@ -12,10 +12,8 @@ aplay -l | sed -e 's/card.*, //' | sed -r -e '/Subdevice.*|\*.*/d' | sort
 
 printf "\n\n${YELLOW}Device ID: ${NC}"
 
-read device_id
-
 printf "\n\n${BLUE}Generated ALSA config:${NC}\n"
-sed -e "s/<DEVICE_ID>/${device_id}/g" ${ALSA_CONF} | tee ${ALSA_CONF_DST}
+sed -e "s/<DEVICE_ID>/0/g" ${ALSA_CONF} | tee ${ALSA_CONF_DST}
 
 docker run --rm -it --device /dev/snd \
   -p 8080:8080 \
