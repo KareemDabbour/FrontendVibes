@@ -1,9 +1,12 @@
 import sqlite3
 from sqlite3 import Error
 import os
+import time
+import pickle
 cwd = os.getcwd()
 
 FILE = "/database/playlists.db" 
+PLAYLIST_TABLE = "Playlists"
 
 class DataBase:
 	def __init__(self):
@@ -23,26 +26,40 @@ class DataBase:
 	    self.cursor = conn.cursor()
 
 	def _create_table(self):
-		query = """CREATE TABLE Playlists 
-					(name text, created date, id int PRIMARY KEY)"""
-		
-		return self.query
-
-	def execute(self, string):
-		self.cursor.execute(string)
+		query = f"""CREATE TABLE {PLAYLIST_TABLE}
+					(name text, created date, songs BLOB,id int PRIMARY KEY AUTOINCREMENT)"""
+		self.cursor.execute(query)
 		self.cursor.commit()
 
 	def get_all_playlists(self):
 		"""
 		returns all playlists
 		"""
-		
+		query = f"SELECT * FROM {PLAYLIST_TABLE}"
+		self.cursor.execute(query)
+		result = self.cursor.fetchall()
+		for r in result:
+			print(r)
 
 	def get_playlist(self, name="", _id=""):
+		"""
+		returns a new playlist object
+		"""
 		if not name and not _id:
 			raise Exception("Must pass a name or ID")
 
-	def create_playlist(self, playlist):
-		pass
+		query = f"SELECT * FROM {PLAYLIST_TABLE}"
 
+	def create_playlist(self, name):
+		"""
+		returns: Playlist object
+		"""
+		pl = Playlist(name)
+		query = f"INSERT INTO {PLAYLIST_TABLE} VALUES (?, ?)\
+				({name}, {time.time()})"
+		self.cursor.execute(query)
+		self.cursor.commit()
+		last_row = 
+
+	def update_playlist(self, _id):
   

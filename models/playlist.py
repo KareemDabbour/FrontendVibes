@@ -2,12 +2,15 @@ import time
 from .song import Song
 
 class Playlist:
-	def __init__(self, name, id, vibe=None):
+	def __init__(self, name, vibe=None):
 		self.name = name
 		self.date_created = time.time()
 		self.vibe = vibe
 		self.songs = []
 		self.id  = _id
+
+	def set_id(self, _id):
+		self.id = _id
 
 	def change_name(self, name):
 		self.name = name
