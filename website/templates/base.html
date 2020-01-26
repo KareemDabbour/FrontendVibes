@@ -10,11 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <style>
 
 body {
-	line-height: unset;
+  line-height: unset !important;
 
 	max-height: 480px;
   font-family: "Lato", sans-serif;
@@ -191,7 +191,11 @@ form.example::after {
 </head>
 <body>
 	<div id="mySidebar" class="sidebar">
-		<a href="playlist">New Playlist</a>
+    <form class="add_playlist" action="/" method="GET">
+      <input type="text" placeholder="Create a playlist" name="playlist_input">
+      <button onpress="submit">Create Playlist</button>
+      <br/>
+    </form>
       <a id = "happy" href="/list/HAPPY">Happy</a>
       <a id = "sad" href="/list/SAD">Sad</a>
       <a id = "energetic" href="/list/ENERGETIC">Energetic</a>

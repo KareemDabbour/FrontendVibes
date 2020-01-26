@@ -321,6 +321,13 @@ color:rgba(0,0,0,.1);
 .playC2{
     width: 50%;
 }
+.cc {
+    position: fixed; bottom: 0px; width: 100%;
+}
+
+.playbuttoncontainer{
+margin: 0 auto; width: 300px;padding: 40px;
+}
 </style>
 
 {% if show_songs %}
@@ -442,21 +449,6 @@ color:rgba(0,0,0,.1);
 {% endif %}
 
 
-<table id = track>
-        <tr>
-            <td> Song</td>
-        </tr>
-        </tr>
-        <td> Artist</td>
-        </tr>
-</table>
-
-
-<div id="soundBar">
-    <ion-icon name="play" size="large"></ion-icon>
-</div>
-
-
 <script>
     function togMen(){
       if(document.getElementById("queue").style.height == "100px"){
@@ -465,7 +457,68 @@ color:rgba(0,0,0,.1);
         document.getElementById("queue").style.height = "100px";
       }
     }
-    </script>
 
+    var state = 'stop';
+
+    function buttonBackPress() {
+        console.log("button back invoked.");
+    }
+
+    function buttonForwardPress() {
+        console.log("button forward invoked.");
+    }
+
+    function buttonRewindPress() {
+        console.log("button rewind invoked.");
+    }
+
+    function buttonFastforwardPress() {
+        console.log("button fast forward invoked.");
+    }
+
+    function buttonPlayPress() {
+        if(state=='stop'){
+          state='play';
+          var button = d3.select("#button_play").classed('btn-success', true); 
+          button.select("i").attr('class', "fa fa-pause");
+        }
+        else if(state=='play' || state=='resume'){
+          state = 'pause';
+          d3.select("#button_play i").attr('class', "fa fa-play"); 
+        }
+        else if(state=='pause'){
+          state = 'resume';
+          d3.select("#button_play i").attr('class', "fa fa-pause");
+        }
+
+    }
+
+    function buttonStopPress(){
+        state = 'stop';
+        var button = d3.select("#button_play").classed('btn-success', false);
+        button.select("i").attr('class', "fa fa-play");
+
+    }
+    </script>
+<div class="cc">
+<div class="playbuttoncontainer">
+    <button type="button" id="button_bw" class="btn" onclick='buttonBackPress()'>
+      <i class="fa fa-backward"></i>
+    </button>
+
+    <button type="button" id="button_play" class="btn" onclick='buttonPlayPress()'>
+      <i class="fa fa-play"></i>
+    </button>
+
+    <button type="button" id="button_stop" class="btn" onclick='buttonStopPress()'>
+      <i class="fa fa-stop"></i>
+    </button>
+
+    <button type="button" id="button_fw" class="btn" onclick='buttonForwardPress()'>
+      <i class="fa fa-forward"></i>
+    </button>
+
+</div>
+</div>
 
 {% endblock %}

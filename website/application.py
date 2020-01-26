@@ -11,9 +11,6 @@ music_player = Player()
 song_library = SongLibrary()
 VIBES = ["HAPPY", "SAD", "ENERGETIC", "CALM"]
 
-db = DataBase()
-for _ in range(20):
-	db.create_playlist("Test", random.choice(VIBES))
 
 @app.route("/playlist/<_id>")
 def songs(_id):
@@ -49,7 +46,8 @@ def play():
 	if music_player.is_playing():
 		pause()
 	else:
-		play_song("song")
+		if len(player.song_queue) > 0:
+			play_song(player.song_queue[0])
 
 	return redirect(url_for("home"))
 
