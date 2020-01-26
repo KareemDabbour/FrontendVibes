@@ -7,7 +7,7 @@ cwd = os.getcwd()
 
 FILE = "/database/playlists.db" 
 PLAYLIST_TABLE = "Playlists"
-
+'''
 class DataBase:
 	def __init__(self):
 		self.liked_songs = None
@@ -63,3 +63,4 @@ class DataBase:
 
 	def update_playlist(self, _id):
   		pass
+'''
