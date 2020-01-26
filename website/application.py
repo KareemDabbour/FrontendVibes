@@ -11,9 +11,17 @@ song_library = SongLibrary()
 VIBES = ["HAPPY", "SAD", "ENERGETIC", "CALM"]
 
 @app.route("/")
-def home(data=None):
-	return render_template("index.html")
-		
+def home():
+	query = request.args.get("search")
+	print(query)
+	ref = {}
+	if query:
+		results = song_library.search(query)
+		ref = {"results":results, "search":query}
+	
+	return render_template("index.html", **ref)
+	
+
 @app.route("/list/<vibe>")
 def playlists(vibe):
 	db = DataBase()
@@ -33,13 +41,6 @@ def songs(_id=None):
 		return render_template("index.html", **rep)
 
 	return redirect(url_for("home"))
-
-@app.route("/search/<query>")
-def search(query=None):
-	results = song_library.search(query)
-	ref = {"results":results, "search":query}
-	return render_template("index.html", **ref)
-	
 
 @app.route("/play/")
 def play():
