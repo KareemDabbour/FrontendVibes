@@ -236,6 +236,8 @@ color:rgba(0,0,0,.1);
 
 #playlist{
     text-align: center;
+    align-items: center;
+    
 }
 
 #playlist a{
@@ -247,6 +249,8 @@ color:rgba(0,0,0,.1);
     color:blueviolet;
     font-size: 4em;
     text-decoration: none;
+    text-align: center;
+    margin-left: 50%;
 }
 
 #playlist_header{
@@ -308,6 +312,15 @@ color:rgba(0,0,0,.1);
     font-size: 14px;
 
 }
+.playC1{
+
+    width: 50%;
+
+}
+
+.playC2{
+    width: 50%;
+}
 </style>
 
 {% if show_songs %}
@@ -354,21 +367,35 @@ color:rgba(0,0,0,.1);
 
 {% if show_playlists %}
 
-    <div id="playlist">
-        <table class="playlist">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Number of Songs</th>
-                </tr>
-            </thead>
-            {% for playlist in playlists %}
+    <h1 class="display-4" id="playlist_header">Play Lists</h1>
+    <table class="table table-striped table-dark" id="playlist_table">
+        <thead>
+              <tr>
+                <th scope="col" class="playC1">Name</th>
+                <th scope="col" class="playC2"># of Songs</th>
+              </tr>
 
-        </table>
-        <!-- <p id="{{playlist.id}}" class="playlist">{{playlist.name}}</p> -->
-        <a href="{{'/playlist/' ~ playlist.id}}">
 
-    </div>
+
+        </thead>
+    
+        {% for playlist in playlists %}
+        <tbody>
+
+            <tr>
+                <a href="{{'/playlist/' ~ playlist.id}}">test</a>
+                <td>
+                    {{playlist.name}}
+                </td>
+                <td>
+                    {{playlist.songs.length}}
+                </td>
+            </tr>
+
+
+        </tbody>
+    </table>
+    
 
 {% endfor %}
 {% endif %}
