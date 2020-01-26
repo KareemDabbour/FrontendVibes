@@ -11,13 +11,7 @@ app.secret_key = "hello"
 music_player = Player()
 song_library = SongLibrary()
 db = DataBase()
-'''
-pl = db.get_playlists_by_id(1)
-music_player.add_song(pl.songs[0])
-music_player.add_song(pl.songs[1])
-pl = db.get_playlists_by_id(1)
-music_player.add_song(pl.songs[0])
-music_player.add_song(pl.songs[1])'''
+
 
 
 VIBES = ["HAPPY", "SAD", "ENERGETIC", "CALM"]
@@ -52,6 +46,7 @@ def home():
 		session["vibe"] = "0"
 
 	print(session["vibe"])
+
 
 	ref = {"session":session}
 	if play:
