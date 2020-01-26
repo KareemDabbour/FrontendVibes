@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# TODO: remove cd
+cd src && FLASK_APP=api flask run --host=0.0.0.0 --port ${SERVER_PORT}

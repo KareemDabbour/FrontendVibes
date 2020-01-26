@@ -1,0 +1,26 @@
+#!/bin/bash
+
+ALSA_CONF=$(pwd)/conf/asound.conf.sample
+ALSA_CONF_DST=$(pwd)/conf/asound.conf
+BLUE='\033[0;34m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
+printf "${BLUE}Please choose the device ID:\n\n${NC}"
+
+aplay -l | sed -e 's/card.*, //' | sed -r -e '/Subdevice.*|\*.*/d' | sort
+
+printf "\n\n${YELLOW}Device ID: ${NC}"
+
+read device_id
+
+printf "\n\n${BLUE}Generated ALSA config:${NC}\n"
+sed -e "s/<DEVICE_ID>/${device_id}/g" ${ALSA_CONF} | tee ${ALSA_CONF_DST}
+
+docker run --rm -it --device /dev/snd \
+  -p 8080:8080 \
+  -p 50051:50051 \
+  -e SERVER_PORT=8080 \
+  -v $(pwd):/player \
+  -v $(pwd)/conf/asound.conf:/etc/asound.conf \
+  simple-music-player $@
