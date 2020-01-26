@@ -1,68 +1,114 @@
 import sqlite3
 from sqlite3 import Error
 import os
-import time
+from datetime import datetime
 import pickle
+from playlist import Playlist
+
 cwd = os.getcwd()
 
-FILE = "/database/playlists.db" 
+FILE = "playlists.db" 
 PLAYLIST_TABLE = "Playlists"
+VIBES = ["HAPPY", "CALM", "SAD", "ENERGETIC"]
 
 class DataBase:
-	pass
-	'''
-	def __init__(self):
-		self.liked_songs = None
-		self.playlists = None
+    def __init__(self):
+        self.liked_songs = None
+        self.playlists = None
 
-		conn = None
-	    try:
-	        conn = sqlite3.connect(FILE)
-	        print(sqlite3.version)
-	    except Error as e:
-	        print(e)
-	    finally:
-	        if conn:
-	            conn.close()
+        self.conn = None
+        try:
+            self.conn = sqlite3.connect(FILE)
+        except Error as e:
+            print(e)
 
-	    self.cursor = conn.cursor()
+        self.cursor = self.conn.cursor()
 
-	def _create_table(self):
-		query = f"""CREATE TABLE {PLAYLIST_TABLE}
-					(name text, created date, songs BLOB,id int PRIMARY KEY AUTOINCREMENT)"""
-		self.cursor.execute(query)
-		self.cursor.commit()
+    def close(self):
+        self.conn.close()
 
-	def get_all_playlists(self):
-		"""
-		returns all playlists
-		"""
-		query = f"SELECT * FROM {PLAYLIST_TABLE}"
-		self.cursor.execute(query)
-		result = self.cursor.fetchall()
-		for r in result:
-			print(r)
+    def _create_table(self):
+        query = f"""CREATE TABLE {PLAYLIST_TABLE}
+                    (name TEXT, created date, vibe TEXT,songs BLOB,id INTEGER PRIMARY KEY AUTOINCREMENT)"""
+        self.cursor.execute(query)
+        self.conn.commit()
 
-	def get_playlist(self, name="", _id=""):
-		"""
-		returns a new playlist object
-		"""
-		if not name and not _id:
-			raise Exception("Must pass a name or ID")
+    def get_all_playlists(self):
+        """
+        returns all playlists
+        """
+        query = f"SELECT * FROM {PLAYLIST_TABLE}"
+        self.cursor.execute(query)
+        result = self.cursor.fetchall()
 
-		query = f"SELECT * FROM {PLAYLIST_TABLE} WHERE NAME = {name} "
+        results = []
+        for r in result:
+            name, date, vibe, songs, _id = r
+            pl = Playlist(name, vibe)
+            pl.date = date
+            pl.songs = pickle.loads(songs)
+            pl.id = _id
+            results.append(pl)
 
-	def create_playlist(self, name):
-		"""
-		returns: Playlist object
-		"""
-		pl = Playlist(name)
-		query = f"INSERT INTO {PLAYLIST_TABLE} VALUES (?, ?)\
-				({name}, {time.time()})"
-		self.cursor.execute(query)
-		self.cursor.commit()
-		last_row = 
+        return results
 
-	def update_playlist(self, _id):
-  		pass
-'''
+    def get_playlists_by_vibe(self, vibe):
+        vibe = vibe.upper()
+        query = f"SELECT * FROM {PLAYLIST_TABLE} WHERE vibe = {vibe}"
+        self.cursor.execute(query)
+
+        result = self.cursor.fetchall()
+
+        results = []
+        for r in result:
+            name, date, vibe, songs, _id = r
+            pl = Playlist(name, vibe)
+            pl.date = date
+            pl.songs = pickle.loads(songs)
+            pl.id = _id
+            results.append(pl)
+
+        return results
+
+    def get_playlists_by_id(self, _id):
+        vibe = vibe.upper()
+        query = f"SELECT * FROM {PLAYLIST_TABLE} WHERE id = {_id}"
+        self.cursor.execute(query)
+
+        result = self.cursor.fetchone()
+
+        name, date, vibe, songs, _id = result
+        pl = Playlist(name, vibe)
+        pl.date = date
+        pl.songs = pickle.loads(songs)
+        pl.id = _id
+
+        return result
+
+    def create_playlist(self, name, vibe):
+        """
+        returns: Playlist object
+        """
+        vibe = vibe.upper()
+        if not name or vibe not in VIBES:
+            raise Exception(f"Invalid arguments, name cannot be null and name must be in {VIBES}")
+
+        pl = Playlist(name)
+        query = f"INSERT INTO {PLAYLIST_TABLE} VALUES (?, ?, ?, ?, ?)"
+        self.cursor.execute(query, (name, datetime.now(),vibe,pickle.dumps([]), None))
+        self.conn.commit()
+        self.cursor.execute("SELECT last_insert_rowid()")
+        row = self.cursor.fetchone()
+        pl.set_id(row[0]) 
+
+    def update_playlist(self, _id, playlist):
+        query = f"UPDATE {PLAYLIST_TABLE} set songs={playlist.songs} WHERE id = {_id}"
+        self.cursor.execute(query)
+        self.conn.commit
+
+
+if __name__ == "__main__":
+    db = DataBase()
+    #db.create_playlist("Chill", "HAPPY")
+    ls = db.get_all_playlists()
+    print(ls)

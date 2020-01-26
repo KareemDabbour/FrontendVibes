@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, redirect, request
-from models import Player, SongLibrary
+from models.player import Player
+from models.song_library import SongLibrary 
 
 
 app = Flask(__name__)

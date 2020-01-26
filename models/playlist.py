@@ -1,5 +1,5 @@
 import time
-from .song import Song
+from song import Song
 
 class Playlist:
 	def __init__(self, name, vibe=None):
@@ -7,7 +7,7 @@ class Playlist:
 		self.date_created = time.time()
 		self.vibe = vibe
 		self.songs = []
-		self.id  = _id
+		self.id = None
 
 	def set_id(self, _id):
 		self.id = _id
@@ -33,3 +33,6 @@ class Playlist:
 			song.remove(song)
 		else:
 			raise Exception("No such song")
+
+	def __repr__(self):
+		return f"Playlist(Name: {self.name}, Vibe: {self.vibe}, # Songs {len(self.songs)})"

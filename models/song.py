@@ -6,3 +6,6 @@ class Song:
 		self.genre = genre
 		self.duration = duration
 
+	def __repr__(self):
+		return f"Song(Name: {self.name}, Artist: {self.artist}, Duration: {self.duration})"
+
