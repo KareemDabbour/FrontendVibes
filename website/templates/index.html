@@ -331,6 +331,27 @@ margin: 0 auto; width: 300px;padding: 40px;
 </style>
 <script>
 
+    function click(id){
+        console.log(id);
+        const http = new XMLHttpRequest();
+
+        http.open("GET", "http://127.0.0.1:5000/?play=true?song_id=" + id);
+        http.send()
+
+        http.onload = () => console.log(http.responseText)
+    }
+
+    // function click(id){
+        $(document)ready(function(id) {
+        console.log(id);
+        const http = new XMLHttpRequest();
+
+        http.open("GET", "http://127.0.0.1:5000/?play=true?song_id=" + id);
+        http.send()
+
+        http.onload = () => console.log(http.responseText)
+        })
+    // }
 
     var state = 'stop';
 
