@@ -36,7 +36,9 @@ def songs(_id=None):
 
 @app.route("/search/<query>")
 def search(query=None):
-	db = DataBase()
+	results = song_library.search(query)
+	ref = {"results":results, "search":query}
+	return render_template("index.html", **ref)
 	
 
 @app.route("/play/")

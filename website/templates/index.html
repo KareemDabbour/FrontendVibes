@@ -234,6 +234,21 @@ color:rgba(0,0,0,.1);
 
 }
 
+#playlist{
+    text-align: center;
+}
+
+#playlist a{
+    text-align: center;
+    text-decoration: none;
+}
+
+.playlist{
+    color:blueviolet;
+    font-size: 4em;
+    text-decoration: none;
+}
+
 #playlist_header{
     text-align:center;
 }
@@ -246,7 +261,6 @@ color:rgba(0,0,0,.1);
     margin-right: 5%;
     font-size:18px;
     vertical-align: middle;
-
 }
 
 .col1t{
@@ -339,9 +353,23 @@ color:rgba(0,0,0,.1);
 {% endif %}
 
 {% if show_playlists %}
-{% for playlist in playlists %}
-<p>{{playlist.name}}</p>
-<a href="{{'/playlist/' + playlits.id}}">
+
+    <div id="playlist">
+        <table class="playlist">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number of Songs</th>
+                </tr>
+            </thead>
+            {% for playlist in playlists %}
+
+        </table>
+        <!-- <p id="{{playlist.id}}" class="playlist">{{playlist.name}}</p> -->
+        <a href="{{'/playlist/' ~ playlist.id}}">
+
+    </div>
+
 {% endfor %}
 {% endif %}
 
@@ -356,13 +384,10 @@ color:rgba(0,0,0,.1);
 </table>
 
 
-    <div id="soundBar">
-
-        <ion-icon name="play" size="large"></ion-icon>
-
-    </div>
-
+<div id="soundBar">
+    <ion-icon name="play" size="large"></ion-icon>
 </div>
+
 
 <script>
     function togMen(){

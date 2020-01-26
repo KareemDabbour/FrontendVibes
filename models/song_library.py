@@ -15,12 +15,12 @@ class SongLibrary:
 
 		response = requests.request("GET", url, headers=headers, data = payload).json()
 
-		result = []
+		results = []
 		for r in response["songs"]:
 			song = Song(r["title"], r["id"], r["artistName"], r["duration"], r["genreName"])
-			result.append(song)
+			results.append(song)
 
-		return result
+		return results
 
 
 		
