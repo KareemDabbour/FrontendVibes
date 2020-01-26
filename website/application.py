@@ -5,17 +5,34 @@ from models.database import DataBase
 from models.song import Song
 
 app = Flask(__name__)
+
 music_player = Player()
 song_library = SongLibrary()
-db = DataBase()
-pl = db.create_playlist("chill","HAPPY")
-pl.add_song(Song("test","1","tim","s",""))
-db.update_playlist(pl)
-playlists = db.get_all_playlists()
+VIBES = ["HAPPY", "SAD", "ENERGETIC", "CALM"]
 
-@app.route('/')
-def home():
-	return render_template("index.html", **{"show_songs": True, "playlist": playlists[-1]})
+@app.route("/")
+def home(data=None):
+	return render_template("index.html")
+		
+@app.route("/list/<vibe>")
+def playlists(vibe):
+	db = DataBase()
+	if vibe in VIBES:
+		rep = {"show_playlists": True, "playlists": db.get_playlists_by_vibe(vibe)}
+		return render_template("index.html", **rep)
+
+	return redirect(url_for("home"))
+
+@app.route("/playlist/<_id>")
+def songs(_id):
+	db = DataBase()
+	ids = filter(lambda x: x.id, db.get_all_playlists())
+
+	if _id in ids:
+		rep = {"show_playlists": True, "playlists": db.get_playlists_by_id(_id)}
+		return render_template("index.html", **rep)
+
+	return redirect(url_for("home"))
 
 @app.route("/play/")
 def play():

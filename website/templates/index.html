@@ -313,7 +313,11 @@ color:rgba(0,0,0,.1);
         <td>{{playlist.songs[count].name}}</td>
         <td>
         <ion-item>
+<<<<<<< HEAD
             <button name = "pBut" onclick="togMen()" class="action_btn">
+=======
+            <button onclick='click()' class="action_btn">
+>>>>>>> dde09575132f09d9398422f14920c0869bcfc0e4
                 <ion-icon name="reorder" color="primary" id="{{playlist.name + count|string}}" size="large"></ion-icon>
         <ion-item>
         </div>
@@ -333,6 +337,17 @@ color:rgba(0,0,0,.1);
 </table>
 {% endif %}
 
+<<<<<<< HEAD
+=======
+{% if show_playlists %}
+{% for playlist in playlists %}
+<p>{{playlist.name}}</p>
+<a href="{{'/playlist/' + playlits.id}}">
+{% endfor %}
+{% endif %}
+
+
+>>>>>>> dde09575132f09d9398422f14920c0869bcfc0e4
 <table id = track>
         <tr>
             <td> Song</td>
