@@ -72,7 +72,6 @@ class DataBase:
         return results
 
     def get_playlists_by_id(self, _id):
-        vibe = vibe.upper()
         query = f"SELECT * FROM {PLAYLIST_TABLE} WHERE id = {_id}"
         self.cursor.execute(query)
 

@@ -10,8 +10,8 @@ class Playlist:
 		self.id = None
 
 	def set_id(self, _id):
-		self.id = _id
-
+		self.id = str(_id)
+		
 	def change_name(self, name):
 		self.name = name
 

@@ -257,7 +257,7 @@ color:rgba(0,0,0,.1);
     text-align:center;
 }
 
-#song_table {
+.song_table {
     max-width:90%;
     text-align:center;
     position: center;
@@ -324,10 +324,17 @@ color:rgba(0,0,0,.1);
 </style>
 
 {% if show_songs %}
+{% if not playlist %}
+    <h1>That playlist does not exist...</h1>
+{% else %}
 <h1 class="display-4" id="playlist_header">{{playlist.name}}</h1>
-<table class="table table-striped table-dark" id="song_table">
+<table class="table table-striped table-dark" class="song_table">
   <thead>
     <tr>
+        <form action="/action_page.php">
+            First name:<br>
+            <input type="text" name="firstname">
+            <br>
       <th scope="col" class="col1t">#</th>
       <th scope="col" class="col2t">Duration</th>
       <th scope="col" class="col3t">Artist</th>
@@ -346,7 +353,9 @@ color:rgba(0,0,0,.1);
         <ion-item>
             <button name = "pBut" onclick="togMen()" class="action_btn">
             <button onclick='click()' class="action_btn">
-                <ion-icon name="reorder" color="primary" id="{{playlist.name + count|string}}" size="large"></ion-icon>
+                <ion-icon name="reorder" color="primary" id="{{playlist.id}}" size="large"></ion-icon>
+                </button>
+            </button>
         </ion-item>
         </div>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
@@ -354,8 +363,8 @@ color:rgba(0,0,0,.1);
 
         <div class="panel-body" id = "pan">
             <ul class="list-group">
-                    <a id = "queue" href="#">Queue Song</a>
-                    <a id = "playlist" href="#">Playlist</a>
+                <a id = "queue" href="#">Queue Song</a>
+                <a id = "playlist" href="#">Playlist</a>
             </ul>
         </div>
         </td>
@@ -364,40 +373,71 @@ color:rgba(0,0,0,.1);
   </tbody>
 </table>
 {% endif %}
+{% endif %}
 
 {% if show_playlists %}
-
-    <h1 class="display-4" id="playlist_header">Play Lists</h1>
     <table class="table table-striped table-dark" id="playlist_table">
         <thead>
               <tr>
                 <th scope="col" class="playC1">Name</th>
                 <th scope="col" class="playC2"># of Songs</th>
               </tr>
-
-
-
         </thead>
-    
-        {% for playlist in playlists %}
         <tbody>
-
+            {% for playlist in playlists %}
             <tr>
-                <a href="{{'/playlist/' ~ playlist.id}}">test</a>
                 <td>
-                    {{playlist.name}}
+                    <a href="{{'/playlist/' ~ playlist.id}}">{{playlist.name}}</a>
                 </td>
                 <td>
-                    {{playlist.songs.length}}
+                    {{playlist.songs|length}}
                 </td>
             </tr>
-
-
+            {% endfor %}
         </tbody>
     </table>
-    
+{% endif %}
 
-{% endfor %}
+{% if search %}
+<h1 class="display-4" id="playlist_header">Search: {{search}}</h1>
+<table class="table table-striped table-dark" class="song_table">
+  <thead>
+    <tr>
+      <th scope="col" class="col1t">#</th>
+      <th scope="col" class="col2t">Duration</th>
+      <th scope="col" class="col3t">Artist</th>
+      <th scope="col" class="col4t">Song</th>
+      <th scope="col" class="col5t">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for count in range(results|length) %}
+        <tr>
+        <th scope="row">{{count+1}}</th>
+        <td>{{results[count].duration}}</td>
+        <td>{{results[count].artist}}</td>
+        <td>{{results[count].name}}</td>
+        <td>
+        <ion-item>
+            <button name = "pBut" onclick="togMen()" class="action_btn">
+            <button onclick='click()' class="action_btn">
+                <ion-icon name="reorder" color="primary" id="{{results[count].id}}" size="large"></ion-icon>
+        </ion-item>
+        </div>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <div class="ppprimary" id = "queue">
+
+        <div class="panel-body" id = "pan">
+            <ul class="list-group">
+                <a id = "queue" href="#">Queue Song</a>
+                <a id = "playlist" href="#">Playlist</a>
+            </ul>
+        </div>
+        </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endif %}
 
 
