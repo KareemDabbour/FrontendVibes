@@ -1,9 +1,7 @@
-
-
-
 {% extends "base.html" %}
 {% block title %}Vibes{% endblock %}
-{%block content%}
+{% block content %}
+
 <style>
 *,::before,::after {
 box-sizing:border-box;
@@ -234,7 +232,7 @@ color:rgba(0,0,0,.1);
 
 }
 
-#playlist{
+#playlist, #playlist2 {
     text-align: center;
     align-items: center;
     
@@ -321,20 +319,80 @@ color:rgba(0,0,0,.1);
 .playC2{
     width: 50%;
 }
-</style>
+.cc {
+    position: fixed; bottom: 0px; width: 100%;
+}
 
-{% if show_songs %}
-{% if not playlist %}
-    <h1>That playlist does not exist...</h1>
-{% else %}
+.playbuttoncontainer{
+margin: 0 auto; width: 300px;padding: 40px;
+}
+
+</style>
+<script>
+    var state = 'stop';
+
+    function buttonBackPress() {
+        console.log("button rewind invoked.");
+        const http = new XMLHttpRequest()
+
+        http.open("GET", "http://127.0.0.1:5000/?rewind=true")
+        http.send()
+
+        http.onload = () => console.log(http.responseText)
+    }
+
+    function buttonForwardPress() {
+        console.log("button fast forward invoked.");
+        const http = new XMLHttpRequest()
+
+        http.open("GET", "http://127.0.0.1:5000/?ff=true")
+        http.send()
+
+        http.onload = () => console.log(http.responseText)
+    }
+
+    function buttonPlayPress() {
+        if(state=='stop'){
+          state='play';
+          var button = d3.select("#button_play").classed('btn-success', true); 
+          button.select("i").attr('class', "fa fa-pause");
+        }
+        else if(state=='play' || state=='resume'){
+          state = 'pause';
+          d3.select("#button_play i").attr('class', "fa fa-play"); 
+        }
+        else if(state=='pause'){
+          state = 'resume';
+          d3.select("#button_play i").attr('class', "fa fa-pause");
+        }
+
+        const http = new XMLHttpRequest()
+
+        http.open("GET", "http://127.0.0.1:5000/?play=true")
+        http.send()
+
+        http.onload = () => console.log(http.responseText)
+    }
+
+    function buttonStopPress(){
+        state = 'stop';
+        var button = d3.select("#button_play").classed('btn-success', false);
+        button.select("i").attr('class', "fa fa-play");
+        const http = new XMLHttpRequest()
+
+        http.open("GET", "http://127.0.0.1:5000/?stop=true")
+        http.send()
+
+        http.onload = () => console.log(http.responseText)
+    }
+
+    </script>
+
+{% if run %}
 <h1 class="display-4" id="playlist_header">{{playlist.name}}</h1>
 <table class="table table-striped table-dark" class="song_table">
   <thead>
     <tr>
-        <form action="/action_page.php">
-            First name:<br>
-            <input type="text" name="firstname">
-            <br>
       <th scope="col" class="col1t">#</th>
       <th scope="col" class="col2t">Duration</th>
       <th scope="col" class="col3t">Artist</th>
@@ -350,52 +408,13 @@ color:rgba(0,0,0,.1);
         <td>{{playlist.songs[count].artist}}</td>
         <td>{{playlist.songs[count].name}}</td>
         <td>
-        <ion-item>
-            <button name = "pBut" onclick="togMen()" class="action_btn">
-            <button onclick='click()' class="action_btn">
-                <ion-icon name="reorder" color="primary" id="{{playlist.id}}" size="large"></ion-icon>
-                </button>
-            </button>
-        </ion-item>
-        </div>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-        <div class="ppprimary" id = "queue">
-
-        <div class="panel-body" id = "pan">
-            <ul class="list-group">
-                <a id = "queue" href="#">Queue Song</a>
-                <a id = "playlist" href="#">Playlist</a>
-            </ul>
+        <button onclick="" class="btn">Queue</button>
         </div>
         </td>
         </tr>
     {% endfor %}
   </tbody>
 </table>
-{% endif %}
-{% endif %}
-
-{% if show_playlists %}
-    <table class="table table-striped table-dark" id="playlist_table">
-        <thead>
-              <tr>
-                <th scope="col" class="playC1">Name</th>
-                <th scope="col" class="playC2"># of Songs</th>
-              </tr>
-        </thead>
-        <tbody>
-            {% for playlist in playlists %}
-            <tr>
-                <td>
-                    <a href="{{'/playlist/' ~ playlist.id}}">{{playlist.name}}</a>
-                </td>
-                <td>
-                    {{playlist.songs|length}}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 {% endif %}
 
 {% if search %}
@@ -418,20 +437,9 @@ color:rgba(0,0,0,.1);
         <td>{{results[count].artist}}</td>
         <td>{{results[count].name}}</td>
         <td>
-        <ion-item>
-            <button name = "pBut" onclick="togMen()" class="action_btn">
-            <button onclick='click()' class="action_btn">
-                <ion-icon name="reorder" color="primary" id="{{results[count].id}}" size="large"></ion-icon>
-        </ion-item>
-        </div>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-        <div class="ppprimary" id = "queue">
-
-        <div class="panel-body" id = "pan">
-            <ul class="list-group">
-                <a id = "queue" href="#">Queue Song</a>
-                <a id = "playlist" href="#">Playlist</a>
-            </ul>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary">Add to Playlist</button>
+            <button type="button" class="btn btn-secondary">Queue</button>
         </div>
         </td>
         </tr>
@@ -440,31 +448,21 @@ color:rgba(0,0,0,.1);
 </table>
 {% endif %}
 
+<div class="cc">
+<div class="playbuttoncontainer">
+    <button type="button" id="button_bw" class="btn" onclick='buttonBackPress()'>
+      <i class="fa fa-backward"></i>
+    </button>
 
-<table id = track>
-        <tr>
-            <td> Song</td>
-        </tr>
-        </tr>
-        <td> Artist</td>
-        </tr>
-</table>
+    <button type="button" id="button_play" class="btn" onclick='buttonPlayPress()'>
+      <i class="fa fa-play"></i>
+    </button>
 
+    <button type="button" id="button_fw" class="btn" onclick='buttonForwardPress()'>
+      <i class="fa fa-forward"></i>
+    </button>
 
-<div id="soundBar">
-    <ion-icon name="play" size="large"></ion-icon>
 </div>
-
-
-<script>
-    function togMen(){
-      if(document.getElementById("queue").style.height == "100px"){
-        document.getElementById("queue").style.height = "0px";
-      } else {
-        document.getElementById("queue").style.height = "100px";
-      }
-    }
-    </script>
-
+</div>
 
 {% endblock %}

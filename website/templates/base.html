@@ -4,17 +4,17 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{%block title%}{%endblock%}</title>
+	<title>{%block title%}{% endblock %}</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <style>
 
 body {
-	line-height: unset;
+  line-height: unset !important;
 
 	max-height: 480px;
   font-family: "Lato", sans-serif;
@@ -190,12 +190,13 @@ form.example::after {
 </style>
 </head>
 <body>
+  <p id="vibe" style="opacity: 0%;">{{session["vibe"]}}</p>
 	<div id="mySidebar" class="sidebar">
-		<a href="playlist">New Playlist</a>
-      <a id = "happy" href="/list/HAPPY">Happy</a>
-      <a id = "sad" href="/list/SAD">Sad</a>
-      <a id = "energetic" href="/list/ENERGETIC">Energetic</a>
-      <a id = "calm" href="/list/CALM">Calm</a>
+    </form>
+      <a id = "happy" href="/playlist/1">Happy</a>
+      <a id = "sad" href="/playlist/2">Sad</a>
+      <a id = "energetic" href="/playlist/3">Energetic</a>
+      <a id = "calm" href="/playlist/4">Calm</a>
 	</div>
 
 	<div id="main">
@@ -218,19 +219,19 @@ form.example::after {
 
 
 	<script>
-	function togNav() {
-		if(document.getElementById("mySidebar").style.width == "250px"){
-			document.getElementById("mySidebar").style.width = "0";
-			document.getElementById("main").style.marginLeft= "0";
-		} else {
-			document.getElementById("mySidebar").style.width = "250px";
-			document.getElementById("main").style.marginLeft= "250px";
-		}
-	}
-	function myFunction(x) {
-  		x.classList.toggle("change");
-  		togNav();
-	}
+  	function togNav() {
+  		if(document.getElementById("mySidebar").style.width == "250px"){
+  			document.getElementById("mySidebar").style.width = "0";
+  			document.getElementById("main").style.marginLeft= "0";
+  		} else {
+  			document.getElementById("mySidebar").style.width = "250px";
+  			document.getElementById("main").style.marginLeft= "250px";
+  		}
+  	}
+  	function myFunction(x) {
+    		x.classList.toggle("change");
+    		togNav();
+  	}
 	</script>
 
 <script>
@@ -253,9 +254,53 @@ dropdown[i].addEventListener("click", function() {
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
   <script >
+
+    $(document).ready(function() {
+
+      $("happy").click(function(){
+        const http = new XMLHttpRequest();
+        http.open("GET", "http://127.0.0.1:5000/?val=0");
+        http.send();
+      })      
+
+    });
+
+    $(document).ready(function() {
+
+      $("sad").click(function(){
+        const http = new XMLHttpRequest();
+        http.open("GET", "http://127.0.0.1:5000/?val=1");
+        http.send();
+      })      
+
+    });
+
+    $(document).ready(function() {
+
+      $("#energetic").click(function(){
+        const http = new XMLHttpRequest();
+        http.open("GET", "http://127.0.0.1:5000/?val=2");
+        http.send();
+      })      
+
+    });
+
+    $(document).ready(function() {
+
+    $("calm").click(function(){
+      const http = new XMLHttpRequest();
+      http.open("GET", "http://127.0.0.1:5000/?val=3");
+      http.send();
+    })      
+
+    });
+
   $(document).ready(function() {
+      
       if($("#vibe").html() == "0"){
+        console.log("happy");
         $(document).ready(function () {
             $("#happy").click(function(){
               $("body").css({"background": "linear-gradient(120deg, #FF9A54 , #FFEA6B, #54FEFB, #E7B2FF, #89FFCB)",
@@ -310,6 +355,5 @@ dropdown[i].addEventListener("click", function() {
     }
   )
 </script>
-
 </body>
 </html>
