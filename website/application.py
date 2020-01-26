@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, session
 from models.player import Player
 from models.song_library import SongLibrary 
 from models.database import DataBase
@@ -6,9 +6,20 @@ from models.song import Song
 import random
 
 app = Flask(__name__)
+app.secret_key = "hello"
 
 music_player = Player()
 song_library = SongLibrary()
+db = DataBase()
+'''
+pl = db.get_playlists_by_id(1)
+music_player.add_song(pl.songs[0])
+music_player.add_song(pl.songs[1])
+pl = db.get_playlists_by_id(1)
+music_player.add_song(pl.songs[0])
+music_player.add_song(pl.songs[1])'''
+
+
 VIBES = ["HAPPY", "SAD", "ENERGETIC", "CALM"]
 
 
@@ -27,7 +38,13 @@ def home():
 	fast_forward = request.args.get("ff")
 	rewind = request.args.get("rewind")
 	song = request.args.get("song_id")
-	ref = {}
+	vibe = request.args.get("val")
+	if vibe:
+		session["vibe"] = vibe
+	else:
+		session["vibes"] = "0"
+
+	ref = {"session":session}
 	if play:
 		if song:
 			r = song_library.search_by_id(song)
@@ -47,7 +64,7 @@ def home():
 			play_song(music_player.song_queue[0])
 	elif query:
 		results = song_library.search(query)
-		ref = {"results":results, "search":query}
+		ref = {"results":results, "search":query, "session":session}
 	
 	return render_template("index.html", **ref)
 	
