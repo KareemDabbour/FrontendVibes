@@ -42,6 +42,9 @@ class Player:
         except:
             raise Exception("Error playing song.")
 
+    def is_playing(self):
+        return self.playing
+
     def resume(self):
         """
         resumes the current song

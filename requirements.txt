@@ -1,5 +1,5 @@
 pygame
 flask
-requests
+requests-2.22.0
 wget
-sqlite3
+sqlite
