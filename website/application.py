@@ -18,9 +18,9 @@ for _ in range(20):
 @app.route("/playlist/<_id>")
 def songs(_id):
 	db = DataBase()
-	ids = filter(lambda x: str(x.id), db.get_all_playlists())
 
-	rep = {"show_playlists": True, "playlists": db.get_playlists_by_id(_id)}
+	x = db.get_playlists_by_id(int(_id))
+	rep = {"show_playlists": x != None, "playlist": x}
 	return render_template("index.html", **rep)
 
 

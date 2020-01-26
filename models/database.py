@@ -76,6 +76,8 @@ class DataBase:
         self.cursor.execute(query)
 
         result = self.cursor.fetchone()
+        if not result:
+            return None
 
         name, date, vibe, songs, _id = result
         pl = Playlist(name, vibe)
@@ -109,7 +111,7 @@ class DataBase:
         if not name or vibe not in VIBES:
             raise Exception(f"Invalid arguments, name cannot be null and name must be in {VIBES}")
 
-        pl = Playlist(name)
+        pl = Playlist(name, vibe)
         query = f"INSERT INTO {PLAYLIST_TABLE} VALUES (?, ?, ?, ?, ?)"
         self.cursor.execute(query, (name, datetime.now(),vibe,pickle.dumps([]), None))
         self.conn.commit()
