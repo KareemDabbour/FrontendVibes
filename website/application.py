@@ -7,6 +7,7 @@ app = Flask(__name__)
 music_player = Player()
 song_library = SongLibrary()
 db = DataBase()
+db.create_playlist("chill","HAPPY")
 playlists = db.get_all_playlists()
 
 @app.route('/')
