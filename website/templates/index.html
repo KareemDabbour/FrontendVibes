@@ -310,9 +310,9 @@ color:rgba(0,0,0,.1);
 {% if show_playlists %}
 {% for playlist in playlists %}
 <p>{{playlist.name}}</p>
+<a href="{{'/playlist/' + playlits.id}}">
 {% endfor %}
 {% endif %}
-
 
 
 <table id = track>

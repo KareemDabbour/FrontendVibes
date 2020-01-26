@@ -14,18 +14,17 @@ VIBES = ["HAPPY", "SAD", "ENERGETIC", "CALM"]
 def home(data=None):
 	return render_template("index.html")
 		
-
 @app.route("/list/<vibe>")
 def playlists(vibe):
 	db = DataBase()
-	if data in VIBES:
-		rep = {"show_playlists": True, "playlists": db.get_playlists_by_vibe(data)}
+	if vibe in VIBES:
+		rep = {"show_playlists": True, "playlists": db.get_playlists_by_vibe(vibe)}
 		return render_template("index.html", **rep)
 
 	return redirect(url_for("home"))
 
 @app.route("/playlist/<_id>")
-def playlists(_id):
+def songs(_id):
 	db = DataBase()
 	ids = filter(lambda x: x.id, db.get_all_playlists())
 
