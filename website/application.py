@@ -6,16 +6,20 @@ app = Flask(__name__)
 music_player = Player()
 song_library = SongLibrary()
 
-@app.route('/', methods=["POST", "GET"])
+@app.route('/')
 def home():
-	if request.method == "POST":
-		if music_player.is_playing():
-			pause()
-		else:
-			play("song")
 	return render_template("index.html")
 
-def play(song):
+@app.route("/play/")
+def play():
+	if music_player.is_playing():
+		pause()
+	else:
+		play_song("song")
+
+	return redirect(url_for("home"))
+
+def play_song(song):
 	try:
 		sng = song_library.search(song)[0]
 		music_player.play(sng)
