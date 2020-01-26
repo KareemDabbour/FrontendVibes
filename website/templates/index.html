@@ -241,6 +241,7 @@ color:rgba(0,0,0,.1);
     margin-right: 5%;
     font-size:18px;
     vertical-align: middle;
+
 }
 
 .col1t{
@@ -261,6 +262,15 @@ color:rgba(0,0,0,.1);
 
 .col5t{
     width:10%;
+}
+
+.action_btn{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }
 
 </style>
@@ -285,7 +295,11 @@ color:rgba(0,0,0,.1);
         <td>{{playlist.songs[count].artist}}</td>
         <td>{{playlist.songs[count].name}}</td>
         <td>
-        <ion-icon name="reorder" id="{{playlist.name + count|string}}" size="large"></ion-icon>
+        <ion-item>
+            <button onclick="" class="action_btn">
+                <ion-icon name="reorder" color="primary" id="{{playlist.name + count|string}}" size="large"></ion-icon>
+            </button>
+            </ion-item>
         </td>
         </tr>
     {% endfor %}
