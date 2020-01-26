@@ -272,7 +272,23 @@ color:rgba(0,0,0,.1);
     overflow: hidden;
     outline:none;
 }
+.ppprimary{
+    height: 0px;
+    width: auto;
+    transition: 0.3s;
 
+}
+.ppprimary a{
+    height: 50px;
+    width: auto;
+    transition: 0.3s;
+
+}
+#pan{
+    text-align: left;
+    font-size: 14px;
+
+}
 </style>
 
 {% if show_songs %}
@@ -296,10 +312,20 @@ color:rgba(0,0,0,.1);
         <td>{{playlist.songs[count].name}}</td>
         <td>
         <ion-item>
+            <button name = "pBut" onclick="togMen()" class="action_btn">
             <button onclick='click()' class="action_btn">
                 <ion-icon name="reorder" color="primary" id="{{playlist.name + count|string}}" size="large"></ion-icon>
-            </button>
-            </ion-item>
+        </ion-item>
+        </div>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <div class="ppprimary" id = "queue">
+
+        <div class="panel-body" id = "pan">
+            <ul class="list-group">
+                    <a id = "queue" href="#">Queue Song</a>
+                    <a id = "playlist" href="#">Playlist</a>
+            </ul>
+        </div>
         </td>
         </tr>
     {% endfor %}
@@ -332,4 +358,16 @@ color:rgba(0,0,0,.1);
     </div>
 
 </div>
+
+<script>
+    function togMen(){
+      if(document.getElementById("queue").style.height == "100px"){
+        document.getElementById("queue").style.height = "0px";
+      } else {
+        document.getElementById("queue").style.height = "100px";
+      }
+    }
+    </script>
+
+
 {% endblock %}
