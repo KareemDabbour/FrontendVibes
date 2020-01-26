@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{%block title%}{%endblock%}</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <style>
-html{
-	
-	height: 100%;
-}
+
 body {
-	min-height: 100%;
+	line-height: unset;
+
+	max-height: 480px;
   font-family: "Lato", sans-serif;
       background: linear-gradient(120deg, #e3227e, #e2f073, #af1fc6);
     background-size: 10000% 10000%;
@@ -29,13 +32,25 @@ body {
     0%{background-position:0% 57%}
     50%{background-position:100% 44%}
     100%{background-position:0% 57%}
- /*
- added new by irt
- */
 
- /*
- added new 
- */
+
+}
+img{
+    max-width: 250px !important;
+  	padding: 3em;
+    
+    
+
+}
+
+.img{
+
+    text-align:  center !important;
+
+   
+
+
+
 }
 .sidebar {
   height: 100%;
@@ -75,7 +90,7 @@ body {
 #main {
   transition: margin-left .5s;
   padding: 16px;
-  	min-height: 750px;
+  	min-height: 480px;
 }
 
 
@@ -172,9 +187,14 @@ form.example::after {
 		  <input type="text" placeholder="Search.." name="search">
 		  <button type="submit"><i class="fa fa-search"></i></button>
 		</form>
-	  	{% block content %}
+	        <div class="img" style="margin:auto;">
+	            <img src="\static\photos\logo-final.png" />
+	        </div>
+	    {% block content %}
 		{% endblock %}
 	</div>
+
+
 
 	<script>
 	function togNav() {

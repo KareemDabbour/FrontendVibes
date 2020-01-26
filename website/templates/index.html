@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Vibes Home{% endblock %}
+{% block title %}home page{% endblock %}
 {%block content%}
 <style>
 *,::before,::after {
@@ -16,13 +16,23 @@ box-sizing:border-box;
 ================================================== */
 
 .container { 
-	position: absolute;
-	 max-width: 200;
+	position: relative;
+	 max-width: 100%;
+	 margin: auto;
+	 bottom: 0;
+	 left: 0;
 	 height: 120px;
-	 padding: 0px; 
-	 bottom: 0 !important;
-	 left: 23%;
+	 padding: 20px; 
+	 text-align: center;
 
+}
+#track{
+position: relative;
+  bottom: 0;
+  margin-left:auto; 
+    margin-right:auto;
+    font-size: 1.5em;
+    font-family: "Lato", sans-serif;
 }
 .column { width:inherit; }
 
@@ -212,11 +222,20 @@ color:rgba(0,0,0,.1);
     #nowPlay span#npTitle { display:block; text-align:center; width:100%; }
 }
 </style>
+<table id = track>
 
-<div class="container" style="margin:auto;max-width:800px">
-    <div class="column add-bottom"style="margin:auto;max-width:800px">
+        <tr>
+            <td> Song</td>
+        </tr>
+        </tr>
+        <td> Artist</td>
+        </tr>
+</table>
+
+<div class="container">
+    <div class="column add-bottom">
             <div id="audiowrap">
-                <div id="audio0" style="margin:auto;max-width:800px">
+                <div id="audio0">
                     <audio id="audio1" preload controls>Audio not supported </audio>
                 </div>
                 <div id="tracks">
