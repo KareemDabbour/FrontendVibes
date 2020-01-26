@@ -13,7 +13,7 @@ pl.add_song(Song("test","1","tim","s",""))
 db.update_playlist(pl)
 playlists = db.get_all_playlists()
 
-@app.route('/')
+@app.route('/', methods=["POST", "GET"])
 def home():
 	return render_template("index.html", **{"show_songs": True, "playlist": playlists[-1]})
 

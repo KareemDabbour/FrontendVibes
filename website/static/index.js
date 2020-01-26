@@ -10,7 +10,6 @@ $(document).ready(function () {
 )
 $(document).ready(function () {
     $("#sad").click(function(){
-        console.log("run");
         $("body").css({"background": "linear-gradient(120deg, #494487, #3C3175, #522A66, #3B1840, #230B21)",
             "background-size": "1000% 1000%",
                 
@@ -29,4 +28,7 @@ $(document).ready(function () {
       });
     }
 )
+
+
+        
 

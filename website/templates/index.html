@@ -296,7 +296,7 @@ color:rgba(0,0,0,.1);
         <td>{{playlist.songs[count].name}}</td>
         <td>
         <ion-item>
-            <button onclick="" class="action_btn">
+            <button onclick='click()' class="action_btn">
                 <ion-icon name="reorder" color="primary" id="{{playlist.name + count|string}}" size="large"></ion-icon>
             </button>
             </ion-item>
@@ -306,7 +306,6 @@ color:rgba(0,0,0,.1);
   </tbody>
 </table>
 {% endif %}
-
 
 
 <table id = track>
