@@ -1,0 +1,4 @@
+pygame
+flask
+requests
+wget
