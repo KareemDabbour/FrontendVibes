@@ -27,11 +27,21 @@ def home():
 	play = request.args.get("play")
 	fast_forward = request.args.get("ff")
 	rewind = request.args.get("rewind")
+	song = request.args.get("song_id")
 	ref = {}
 	if play:
-		play_queue()
+		if song:
+			r = song_library.search_by_id(song)
+			music_player.add_song(r)
+		else:
+			play_queue()
+	elif song:
+		r = song_library.search_by_id(song)
+		music_player.remove_song()
+		play_song(r)
 	elif fast_forward:
-		music_player.pop_song()
+		music_player.remove_song()
+		music_player.stop()
 		play_queue()
 	elif rewind:
 		if len(music_player.song_queue) > 0: 

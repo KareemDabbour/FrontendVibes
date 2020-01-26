@@ -86,7 +86,7 @@ class Player:
         """
         remove song from queue
         """
-        if self.song_queue > 0:
+        if len(self.song_queue) > 0:
             self.song_queue.pop(0)
 
     def get_status(self):
