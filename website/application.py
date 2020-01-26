@@ -24,7 +24,7 @@ def playlists(vibe):
 	return redirect(url_for("home"))
 
 @app.route("/playlist/<_id>")
-def songs(_id):
+def songs(_id=None):
 	db = DataBase()
 	ids = filter(lambda x: x.id, db.get_all_playlists())
 
@@ -33,6 +33,11 @@ def songs(_id):
 		return render_template("index.html", **rep)
 
 	return redirect(url_for("home"))
+
+@app.route("/search/<query>")
+def search(query=None):
+	db = DataBase()
+	
 
 @app.route("/play/")
 def play():
