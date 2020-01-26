@@ -85,6 +85,10 @@ img{
   	min-height: 480px;
 }
 
+#playlist{
+  color:white
+}
+
 
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
@@ -179,17 +183,24 @@ form.example::after {
   color: #f1f1f1;
 }
 
+#mySidebar{
+  color: white
+}
+
 </style>
 </head>
 <body>
-	<div id="mySidebar" class="sidebar">
-		<a href="playlist">New Playlist</a>
-      <a id = "happy" href="list/HAPPY">Happy</a>
-      <a id = "sad" href="list/SAD">Sad</a>
-      <a id = "energetic" href="list/ENERGETIC">Energetic</a>
-      <a id = "calm" href="list/CALM">Calm</a>
-      <a href="#">Vibe Check</a>
+
+  <div 
+  id="mySidebar" class="sidebar">
+  <a id = "playlist" href="Playlist"> Playlist</a>
+    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+      <a id = "happy" href="HAPPY">Happy</a>
+      <a id = "sad" href="SAD">Sad</a>
+      <a id = "energetic" href="ENERGETIC">Energetic</a>
+      <a id = "calm" href="CALM">Calm</a>
     </div>
+	</div>
 
 	<div id="main">
 	  	<div class="butt" onclick="myFunction(this)">
