@@ -23,12 +23,13 @@ class DataBase:
             print(e)
 
         self.cursor = self.conn.cursor()
+        self._create_table()
 
     def close(self):
         self.conn.close()
 
     def _create_table(self):
-        query = f"""CREATE TABLE {PLAYLIST_TABLE}
+        query = f"""CREATE TABLE IF NOT EXISTS {PLAYLIST_TABLE}
                     (name TEXT, created date, vibe TEXT,songs BLOB,id INTEGER PRIMARY KEY AUTOINCREMENT)"""
         self.cursor.execute(query)
         self.conn.commit()
@@ -54,8 +55,8 @@ class DataBase:
 
     def get_playlists_by_vibe(self, vibe):
         vibe = vibe.upper()
-        query = f"SELECT * FROM {PLAYLIST_TABLE} WHERE vibe = {vibe}"
-        self.cursor.execute(query)
+        query = f"SELECT * FROM {PLAYLIST_TABLE} WHERE vibe =?"
+        self.cursor.execute(query, (vibe,))
 
         result = self.cursor.fetchall()
 
@@ -102,13 +103,12 @@ class DataBase:
         pl.set_id(row[0]) 
 
     def update_playlist(self, _id, playlist):
-        query = f"UPDATE {PLAYLIST_TABLE} set songs={playlist.songs} WHERE id = {_id}"
+        query = f"UPDATE {PLAYLIST_TABLE} set songs={pickle.dumps(playlist.songs)} WHERE id = {_id}"
         self.cursor.execute(query)
         self.conn.commit
 
 
 if __name__ == "__main__":
     db = DataBase()
-    #db.create_playlist("Chill", "HAPPY")
-    ls = db.get_all_playlists()
+    ls = db.get_playlists_by_vibe("HAPPY")
     print(ls)
