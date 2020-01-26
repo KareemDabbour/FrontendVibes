@@ -11,9 +11,9 @@ music_player = Player()
 song_library = SongLibrary()
 VIBES = ["HAPPY", "SAD", "ENERGETIC", "CALM"]
 
-db = DataBase()
-for _ in range(20):
-	db.create_playlist("Test", random.choice(VIBES))
+# db = DataBase()
+# for _ in range(20):
+# 	db.create_playlist("Test", random.choice(VIBES))
 
 @app.route("/playlist/<_id>")
 def songs(_id):

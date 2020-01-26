@@ -253,49 +253,63 @@ dropdown[i].addEventListener("click", function() {
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-  <script >$(document).ready(function () {
-    $("#happy").click(function(){
-        $("body").css({"background": "linear-gradient(120deg, #FF9A54 , #FFEA6B, #54FEFB, #E7B2FF, #89FFCB)",
-            "background-size": "1000% 1000%",
-                
-            "-webkit-animation": "AnimationName 10s ease infinite",
-            "animation": "AnimationName 10s ease infinite"})
-      });
-    }
-)
-$(document).ready(function () {
-    $("#energetic").click(function(){
-        console.log("run");
-        $("body").css({"background": "linear-gradient(120deg, ##d2fdff, ##b4dfe5, #3036c6, #f4976c, #fbe8a6)",
-            "background-size": "1000% 1000%",
-                
-            "-webkit-animation": "AnimationName 10s ease infinite",
-            "animation": "AnimationName 10s ease infinite"})
-      });
-    }
-)
+  <script >
+  $(document).ready(function() {
+      if($("#vibe").html() == "0"){
+        $(document).ready(function () {
+            $("#happy").click(function(){
+              $("body").css({"background": "linear-gradient(120deg, #FF9A54 , #FFEA6B, #54FEFB, #E7B2FF, #89FFCB)",
+                "background-size": "1000% 1000%",
+                    
+                "-webkit-animation": "AnimationName 10s ease infinite",
+                "animation": "AnimationName 10s ease infinite"})
+               });    
+            }
+        )
+      }
 
-$(document).ready(function () {
-    $("#sad").click(function(){
+      if($("#vibe").html() == "1"){
+        $(document).ready(function () {
+          $("#energetic").click(function(){
+            console.log("run");
+            $("body").css({"background": "linear-gradient(120deg, ##d2fdff, ##b4dfe5, #3036c6, #f4976c, #fbe8a6)",
+            "background-size": "1000% 1000%",
+                
+            "-webkit-animation": "AnimationName 10s ease infinite",
+            "animation": "AnimationName 10s ease infinite"})
+            });
+          }
+        )
+      }
+      if($("#vibe").html() == "2"){
+        $(document).ready(function () {
+        $("#sad").click(function(){
         console.log("run");
         $("body").css({"background": "linear-gradient(120deg, #494487, #3C3175, #522A66, #3B1840, #230B21)",
             "background-size": "1000% 1000%",
                 
             "-webkit-animation": "AnimationName 10s ease infinite",
             "animation": "AnimationName 10s ease infinite"})
-      });
-    }
-)
-$(document).ready(function () {
-    $("#calm").click(function(){
+          });
+          }
+        )
+      }
+      if($("#vibe").html() == "3"){
+        $(document).ready(function () {
+        $("#calm").click(function(){
         $("body").css({"background": "linear-gradient(120deg, #280F36, #632B6C, #C76C98, #F09F9C, #FDC2A2)",
             "background-size": "1000% 1000%",
                 
             "-webkit-animation": "AnimationName 10s ease infinite",
             "animation": "AnimationName 10s ease infinite"})
-      });
+            });
+          }
+      )
+      }
+
     }
-)</script>
+  )
+</script>
 
 </body>
 </html>
