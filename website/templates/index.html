@@ -491,14 +491,26 @@ margin: 0 auto; width: 300px;padding: 40px;
           d3.select("#button_play i").attr('class', "fa fa-pause");
         }
 
+        const http = new XMLHttpRequest()
+
+        http.open("GET", "http://127.0.0.1:5000/?play=true")
+        http.send()
+
+        http.onload = () => console.log(http.responseText)
     }
 
     function buttonStopPress(){
         state = 'stop';
         var button = d3.select("#button_play").classed('btn-success', false);
         button.select("i").attr('class', "fa fa-play");
+        const http = new XMLHttpRequest()
 
+        http.open("GET", "http://127.0.0.1:5000/?stop=true")
+        http.send()
+
+        http.onload = () => console.log(http.responseText)
     }
+
     </script>
 <div class="cc">
 <div class="playbuttoncontainer">
@@ -508,10 +520,6 @@ margin: 0 auto; width: 300px;padding: 40px;
 
     <button type="button" id="button_play" class="btn" onclick='buttonPlayPress()'>
       <i class="fa fa-play"></i>
-    </button>
-
-    <button type="button" id="button_stop" class="btn" onclick='buttonStopPress()'>
-      <i class="fa fa-stop"></i>
     </button>
 
     <button type="button" id="button_fw" class="btn" onclick='buttonForwardPress()'>

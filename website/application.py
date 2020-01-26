@@ -24,8 +24,19 @@ def songs(_id):
 @app.route("/")
 def home():
 	query = request.args.get("search")
+	play = request.args.get("play")
+	fast_forward = request.args.get("ff")
+	rewind = request.args.get("rewind")
 	ref = {}
-	if query:
+	if play:
+		play_queue()
+	elif fast_forward:
+		music_player.pop_song()
+		play_queue()
+	elif rewind:
+		if len(music_player.song_queue) > 0: 
+			play_song(music_player.song_queue[0])
+	elif query:
 		results = song_library.search(query)
 		ref = {"results":results, "search":query}
 	
@@ -41,22 +52,22 @@ def playlists(vibe):
 
 	return redirect(url_for("home"))
 
-@app.route("/play/")
-def play():
+
+def play_queue():
 	if music_player.is_playing():
 		pause()
 	else:
-		if len(player.song_queue) > 0:
-			play_song(player.song_queue[0])
+		try:
+			music_player.resume()
+		except: 
+			if len(music_player.song_queue) > 0:
+				play_song(music_player.song_queue[0])
 
 	return redirect(url_for("home"))
 
 def play_song(song):
-	try:
-		sng = song_library.search(song)[0]
-		music_player.play(sng)
-	except:
-		print("[LOG] Please start the music server")
+	music_player.play(song)
+
 
 def pause():
 	try:

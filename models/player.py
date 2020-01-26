@@ -2,6 +2,7 @@ import requests
 import glob, os
 import json
 import time
+from .song import Song
 
 class Player:
     """
@@ -52,6 +53,10 @@ class Player:
         requests.post(self.RESUME_URL)
         self.playing = True
 
+    def stop(self):
+        requests.post(self.STOP_URL)
+        self.playing = False
+
     def pause(self):
         """
         pauses the current song
@@ -77,12 +82,12 @@ class Player:
         else:
             raise Excpetion("Argument must be type Song")
 
-    def remove_song(self, song):
+    def remove_song(self):
         """
         remove song from queue
         """
-        if song in self.song_queue:
-            self.song_queue.remove(song)
+        if self.song_queue > 0:
+            self.song_queue.pop(0)
 
     def get_status(self):
         """
