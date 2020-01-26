@@ -193,10 +193,10 @@ form.example::after {
   <p id="vibe" style="opacity: 0%;">{{session["vibe"]}}</p>
 	<div id="mySidebar" class="sidebar">
     </form>
-      <a id = "happy" href="/playlist/1">Happy</a>
-      <a id = "sad" href="/playlist/2">Sad</a>
-      <a id = "energetic" href="/playlist/3">Energetic</a>
-      <a id = "calm" href="/playlist/4">Calm</a>
+      <a id = "happy" href="/playlist/1?val=0">Happy</a>
+      <a id = "sad" href="/playlist/2?val=1">Sad</a>
+      <a id = "energetic" href="/playlist/3?val=2">Energetic</a>
+      <a id = "calm" href="/playlist/4?val=3">Calm</a>
 	</div>
 
 	<div id="main">
@@ -298,56 +298,55 @@ dropdown[i].addEventListener("click", function() {
     });
 
   $(document).ready(function() {
-      
-      if($("#vibe").html() == "0"){
+      if($("#vibe").text() == "0"){
         console.log("happy");
         $(document).ready(function () {
-            $("#happy").click(function(){
+            // $("#happy").click(function(){
               $("body").css({"background": "linear-gradient(120deg, #FF9A54 , #FFEA6B, #54FEFB, #E7B2FF, #89FFCB)",
                 "background-size": "1000% 1000%",
                     
                 "-webkit-animation": "AnimationName 10s ease infinite",
                 "animation": "AnimationName 10s ease infinite"})
-               });    
+               // });    
             }
         )
       }
 
-      if($("#vibe").html() == "1"){
+      if($("#vibe").text() == "2"){
         $(document).ready(function () {
-          $("#energetic").click(function(){
+          // $("#energetic").click(function(){
             console.log("run");
             $("body").css({"background": "linear-gradient(120deg, ##d2fdff, ##b4dfe5, #3036c6, #f4976c, #fbe8a6)",
             "background-size": "1000% 1000%",
                 
             "-webkit-animation": "AnimationName 10s ease infinite",
             "animation": "AnimationName 10s ease infinite"})
-            });
+            // });
           }
         )
       }
-      if($("#vibe").html() == "2"){
+      if($("#vibe").text() == "1"){
         $(document).ready(function () {
-        $("#sad").click(function(){
+        // $("#sad").click(function(){
         console.log("run");
         $("body").css({"background": "linear-gradient(120deg, #494487, #3C3175, #522A66, #3B1840, #230B21)",
             "background-size": "1000% 1000%",
                 
             "-webkit-animation": "AnimationName 10s ease infinite",
             "animation": "AnimationName 10s ease infinite"})
-          });
+          // });
           }
         )
       }
-      if($("#vibe").html() == "3"){
+      if($("#vibe").text() == "3"){
         $(document).ready(function () {
-        $("#calm").click(function(){
+        // $("#calm").click(function(){
         $("body").css({"background": "linear-gradient(120deg, #280F36, #632B6C, #C76C98, #F09F9C, #FDC2A2)",
             "background-size": "1000% 1000%",
                 
             "-webkit-animation": "AnimationName 10s ease infinite",
             "animation": "AnimationName 10s ease infinite"})
-            });
+            // });
           }
       )
       }

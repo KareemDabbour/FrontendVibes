@@ -5,7 +5,7 @@ import time
 from .song import Song
 
 class Player:
-    """
+    """z
     Create an instance of player to
     control the music.
     """

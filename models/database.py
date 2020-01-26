@@ -4,12 +4,15 @@ import os
 from datetime import datetime
 import pickle
 from .playlist import Playlist
+from .song_library import SongLibrary
+
 
 cwd = os.getcwd()
 
 FILE = "playlists.db" 
 PLAYLIST_TABLE = "Playlists"
 VIBES = ["HAPPY", "CALM", "SAD", "ENERGETIC"]
+
 
 class DataBase:
     def __init__(self):
@@ -124,4 +127,3 @@ class DataBase:
         query = f"UPDATE {PLAYLIST_TABLE} set songs=? WHERE id = {playlist.id}"
         self.cursor.execute(query, (pickle.dumps(playlist.songs),))
         self.conn.commit()
-
