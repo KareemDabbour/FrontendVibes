@@ -15,9 +15,8 @@ VIBES = ["HAPPY", "SAD", "ENERGETIC", "CALM"]
 @app.route("/playlist/<_id>")
 def songs(_id):
 	db = DataBase()
-
 	x = db.get_playlists_by_id(int(_id))
-	rep = {"show_playlists": x != None, "playlist": x}
+	rep = {"run":True, "playlist": x}
 	return render_template("index.html", **rep)
 
 
@@ -52,16 +51,6 @@ def home():
 	
 	return render_template("index.html", **ref)
 	
-
-@app.route("/list/<vibe>")
-def playlists(vibe):
-	db = DataBase()
-	if vibe in VIBES:
-		rep = {"show_playlists": True, "playlists": db.get_playlists_by_vibe(vibe)}
-		return render_template("index.html", **rep)
-
-	return redirect(url_for("home"))
-
 
 def play_queue():
 	if music_player.is_playing():

@@ -328,31 +328,9 @@ color:rgba(0,0,0,.1);
 .playbuttoncontainer{
 margin: 0 auto; width: 300px;padding: 40px;
 }
+
 </style>
 <script>
-
-    function click(id){
-        console.log(id);
-        const http = new XMLHttpRequest();
-
-        http.open("GET", "http://127.0.0.1:5000/?play=true?song_id=" + id);
-        http.send()
-
-        http.onload = () => console.log(http.responseText)
-    }
-
-    // function click(id){
-        $(document)ready(function(id) {
-        console.log(id);
-        const http = new XMLHttpRequest();
-
-        http.open("GET", "http://127.0.0.1:5000/?play=true?song_id=" + id);
-        http.send()
-
-        http.onload = () => console.log(http.responseText)
-        })
-    // }
-
     var state = 'stop';
 
     function buttonBackPress() {
@@ -412,18 +390,11 @@ margin: 0 auto; width: 300px;padding: 40px;
 
     </script>
 
-{% if show_songs %}
-{% if playlist != None %}
-    <h1>That playlist does not exist...</h1>
-{% else %}
+{% if run %}
 <h1 class="display-4" id="playlist_header">{{playlist.name}}</h1>
 <table class="table table-striped table-dark" class="song_table">
   <thead>
     <tr>
-        <form action="/action_page.php">
-            First name:<br>
-            <input type="text" name="firstname">
-            <br>
       <th scope="col" class="col1t">#</th>
       <th scope="col" class="col2t">Duration</th>
       <th scope="col" class="col3t">Artist</th>
@@ -446,30 +417,6 @@ margin: 0 auto; width: 300px;padding: 40px;
     {% endfor %}
   </tbody>
 </table>
-{% endif %}
-{% endif %}
-
-{% if show_playlists %}
-    <table class="table table-striped table-dark" id="playlist_table">
-        <thead>
-              <tr>
-                <th scope="col" class="playC1">Name</th>
-                <th scope="col" class="playC2"># of Songs</th>
-              </tr>
-        </thead>
-        <tbody>
-            {% for playlist in playlists %}
-            <tr>
-                <td>
-                    <a href="{{'/playlist/' ~ playlist.id}}">{{playlist.name}}</a>
-                </td>
-                <td>
-                    {{playlist.songs|length}}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 {% endif %}
 
 {% if search %}

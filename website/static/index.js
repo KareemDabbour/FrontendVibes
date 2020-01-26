@@ -29,6 +29,15 @@ $(document).ready(function () {
     }
 )
 
+function click(id){
+    console.log(id);
+    const http = new XMLHttpRequest();
+
+    http.open("GET", "http://127.0.0.1:5000/?play=true?playlist=None?song_id=" + id);
+    http.send()
+
+    http.onload = () => console.log(http.responseText)
+}
 
         
 

@@ -35,4 +35,4 @@ class Playlist:
 			raise Exception("No such song")
 
 	def __repr__(self):
-		return f"Playlist(Name: {self.name}, Vibe: {self.vibe}, # Songs {len(self.songs)})"
+		return f"Playlist(Name: {self.name}, Vibe: {self.vibe}, # Songs {len(self.songs)}, String: {self.id})"
