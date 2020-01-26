@@ -48,7 +48,7 @@ class DataBase:
 		if not name and not _id:
 			raise Exception("Must pass a name or ID")
 
-		query = f"SELECT * FROM {PLAYLIST_TABLE}"
+		query = f"SELECT * FROM {PLAYLIST_TABLE} WHERE NAME = {name} "
 
 	def create_playlist(self, name):
 		"""
@@ -62,4 +62,4 @@ class DataBase:
 		last_row = 
 
 	def update_playlist(self, _id):
-  
+  		pass
