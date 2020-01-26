@@ -27,7 +27,14 @@ VIBES = ["HAPPY", "SAD", "ENERGETIC", "CALM"]
 def songs(_id):
 	db = DataBase()
 	x = db.get_playlists_by_id(int(_id))
-	rep = {"run":True, "playlist": x}
+	vibe = request.args.get("val")
+	if vibe:
+		session["vibe"] = vibe
+	else:
+		session["vibe"] = "0"
+
+	print(session["vibe"])
+	rep = {"run":True, "playlist": x, "session":session}
 	return render_template("index.html", **rep)
 
 
@@ -42,7 +49,9 @@ def home():
 	if vibe:
 		session["vibe"] = vibe
 	else:
-		session["vibes"] = "0"
+		session["vibe"] = "0"
+
+	print(session["vibe"])
 
 	ref = {"session":session}
 	if play:
