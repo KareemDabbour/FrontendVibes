@@ -13,10 +13,10 @@ def start_player():
 	else:
 		try:
 			cwd = os.getcwd()
-			os.chdir(cwd + "/music") 
-			os.system("./bin/run-player")
-		except:
-			raise Exception("Could not start player.")
+			os.chdir(cwd + "/models/music/bin") 
+			os.system("./run-player")
+		except Exception as e:
+			raise Exception("Could not start player. " + str(e))
 
 
 if __name__ == "__main__":

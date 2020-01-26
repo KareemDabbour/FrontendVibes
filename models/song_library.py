@@ -1,6 +1,5 @@
 import requests
-import Song
-
+from .song import Song
 
 class SongLibrary:
 	QUERY_URL = "https://conuhacks-2020.tsp.cld.touchtunes.com/v1/songs?query="
