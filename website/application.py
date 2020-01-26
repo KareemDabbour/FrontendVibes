@@ -27,5 +27,7 @@ def pause():
 	except:
 		print("[LOG] Pleas start the music server")
 
+	return redirect(url_for("home"))
+
 if __name__ == "__main__":
 	app.run(debug = True)
