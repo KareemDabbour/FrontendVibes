@@ -7,8 +7,10 @@ cwd = os.getcwd()
 
 FILE = "/database/playlists.db" 
 PLAYLIST_TABLE = "Playlists"
-'''
+
 class DataBase:
+	pass
+	'''
 	def __init__(self):
 		self.liked_songs = None
 		self.playlists = None
