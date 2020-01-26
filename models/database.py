@@ -55,7 +55,7 @@ class DataBase:
 
     def get_playlists_by_vibe(self, vibe):
         vibe = vibe.upper()
-        query = f"SELECT * FROM {PLAYLIST_TABLE} WHERE vibe =?"
+        query = f"SELECT * FROM {PLAYLIST_TABLE} WHERE vibe=?"
         self.cursor.execute(query, (vibe,))
 
         result = self.cursor.fetchall()
@@ -84,7 +84,23 @@ class DataBase:
         pl.songs = pickle.loads(songs)
         pl.id = _id
 
-        return result
+        return pl
+
+    def get_playlists_by_name(self, name):
+        query = f"SELECT * FROM {PLAYLIST_TABLE} WHERE name = {name}"
+        self.cursor.execute(query)
+
+        result = self.cursor.fetchone()
+        if result == None:
+            return None
+
+        name, date, vibe, songs, _id = result
+        pl = Playlist(name, vibe)
+        pl.date = date
+        pl.songs = pickle.loads(songs)
+        pl.id = _id
+
+        return pl
 
     def create_playlist(self, name, vibe):
         """
