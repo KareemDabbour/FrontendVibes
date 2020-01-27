@@ -126,4 +126,6 @@ class DataBase:
     def update_playlist(self, playlist):
         query = f"UPDATE {PLAYLIST_TABLE} set songs=? WHERE id = {playlist.id}"
         self.cursor.execute(query, (pickle.dumps(playlist.songs),))
+        query = f"UPDATE {PLAYLIST_TABLE} set name=? WHERE id = {playlist.id}"
+        self.cursor.execute(query, (playlist.name,))
         self.conn.commit()
