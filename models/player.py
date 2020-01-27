@@ -1,8 +1,10 @@
 import requests
 import glob, os
+from os import walk
 import json
 import time
 from .song import Song
+import random
 
 class Player:
     """z
@@ -22,7 +24,7 @@ class Player:
         self.song_queue = []
         self.playing = False
 
-    def play(self, song):
+    def _play(self, song):
         """
         Plays the song indicated, you should
         search for the song first
@@ -40,8 +42,18 @@ class Player:
             r = requests.post(self.DOWNLOAD_URL + get_url)
             print(r)
             self.playing = True
-        except:
-            raise Exception("Error playing song.")
+        except Exception as e:
+            print(e)
+
+    def play(self, song):
+        PATH = os.getcwd() + "/models/music/music/"
+
+        f = []
+        for (dirpath, dirnames, filenames) in walk(PATH):
+            f.extend(filenames)
+            break
+        r = requests.post(self.PLAY_URL + random.choice(f))
+        self.playing = True
 
     def is_playing(self):
         return self.playing

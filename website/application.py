@@ -14,66 +14,6 @@ song_library = SongLibrary()
 start = True
 db = DataBase()
 VIBES = ["HAPPY", "SAD", "ENERGETIC", "CALM"]
-print(db.get_all_playlists())
-
-def create_playlist():
-    p1 = db.create_playlist("HAPPY", "HAPPY")
-    s = SongLibrary()
-
-    x = s.search("Dancing Queen")[0]
-    p1.add_song(x)
-    x = s.search ("Walking on Sunshine")[0]
-    p1.add_song(x)
-    x = s.search ("Happier")[0]
-    p1.add_song(x)
-    x = s.search ("All Star")[0]
-    p1.add_song(x)
-    x = s.search ("Hey, Soul Sister")[0]
-    p1.add_song(x)
-    db.update_playlist(p1)
-
-    p2 = db.create_playlist("SAD","SAD")
-    s2 = SongLibrary()
-
-    x = s.search("Strawberry Swing")[0]
-    p2.add_song(x)
-    x = s.search ("Blem")[0]
-    p2.add_song(x)
-    x = s.search ("Signs")[1]
-    p2.add_song(x)
-    x = s.search ("Peace")[0]
-    p2.add_song(x)
-    db.update_playlist(p2)
-
-
-    p3 = db.create_playlist("ENERGETIC","ENERGETIC")
-    x = s.search("Marvin's Room")[0]
-    p3.add_song(x)
-    x = s.search ("These Walls")[0]
-    p2.add_song(x)
-    x = s.search ("Take me to church")[1]
-    p3.add_song(x)
-    x = s.search ("Broken")[0]
-    p3.add_song(x)
-    x = s.search ("Orlando")[0]
-    p3.add_song(x)
-    db.update_playlist(p3)
-
-    p4 = db.create_playlist("CALM","CALM")
-    x = s.search("Trophies")[0]
-    p4.add_song(x)
-    x = s.search ("Life is Good")[1]
-    p4.add_song(x)
-    x = s.search ("DNA")[0]
-    p4.add_song(x)
-    x = s.search ("Humble")[0]
-    p4.add_song(x)
-    x = s.search ("Nonstop")[0]
-    p4.add_song(x)
-    db.update_playlist(p4)
-
-
-
 def update_names_and_queue():
     p1 = db.get_playlists_by_id("1")
     p2 = db.get_playlists_by_id("2")
@@ -104,7 +44,6 @@ def update_names_and_queue():
 
 update_names_and_queue()
 
-
 @app.route("/playlist/<_id>")
 def songs(_id):
     db = DataBase()
@@ -127,10 +66,6 @@ def home():
     fast_forward = request.args.get("ff")
     rewind = request.args.get("rewind")
     song = request.args.get("song_id")
-    try:
-        print(session["vibe"])
-    except:
-        pass
 
     ref = {"session":session}
     if play:
@@ -174,7 +109,7 @@ def play_song(song):
         music_player.play(song)
     except:
         music_player.remove_song()
-        if len(music_player) > 0:
+        if len(music_player.song_queue) > 0:
             music_player.play(music_player.song_queue[0])
 
 
