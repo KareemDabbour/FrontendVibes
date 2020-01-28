@@ -14,6 +14,7 @@ song_library = SongLibrary()
 start = True
 db = DataBase()
 VIBES = ["HAPPY", "SAD", "ENERGETIC", "CALM"]
+
 def update_names_and_queue():
     p1 = db.get_playlists_by_id("1")
     p2 = db.get_playlists_by_id("2")
@@ -83,8 +84,10 @@ def home():
         if len(music_player.song_queue) > 0: 
             play_song(music_player.song_queue[0])
     elif query:
+        print("Offline")
+        """
         results = song_library.search(query)
-        ref = {"results":results, "search":query, "session":session}
+        ref = {"results":results, "search":query, "session":session}"""
     
     return render_template("index.html", **ref)
     
